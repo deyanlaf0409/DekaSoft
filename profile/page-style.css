@@ -1,0 +1,131 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Set the body to fill the viewport height */
+    margin: 0;
+    padding: 0;
+    background-color: #f2f2f2;
+}
+
+
+.welcome {
+    background-color: #f2f2f2;
+    color: #333;
+    padding: 5px;
+    text-align: center;
+    width: 90%;
+    z-index: 0;
+    margin: 100px auto 10px; /* Add margin to center and create space from the top */
+}
+
+
+.logout {
+    background: blue; /* Initial background color */
+    color: rgb(29, 29, 29);;
+    padding: 8px 16px;
+    margin-right: 2px;
+    text-decoration: none;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    top: 10px; /* Adjust top position */
+    left: 50px; /* Adjust left position */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition effect */
+    background-image: url('../res/logout-icon.png');
+    background-size: 20%; /* Adjust the size of the image */
+    background-repeat: no-repeat;
+    background-color: #f7f6ff;
+    background-position: right 80px center; /* Position the image to the right with some padding */
+    padding-left: 35px; /* Adjust spacing to accommodate the image */
+    transition: opacity 0.3s, box-shadow 0.3s, background-color 0.3s, background-position 0.3s; /* Transition for opacity change */
+    opacity: 0;
+}
+
+/* Button hover styles */
+.logout:hover {
+    background-color: white; /* Change background color on hover */ /* Change text color on hover */
+    background-position: 0;
+}
+
+
+.profile {
+    background: blue; /* Initial background color */
+    color: white;
+    padding: 8px 16px;
+    margin-right: 2px;
+    text-decoration: none;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    top: 10px; /* Adjust top position */
+    left: 50px; /* Adjust left position */
+    transition: background-color 0.3s, color 0.3s; /* Smooth transition effect */
+    background-image: url('../res/profile-icon.png');
+    background-size: 20%; /* Adjust the size of the image */
+    background-repeat: no-repeat;
+    background-position: right 75px center; /* Position the image to the right with some padding */
+    padding-left: 30px; /* Adjust spacing to accommodate the image */
+    opacity: 0;
+}
+
+/* Button hover styles */
+.profile:hover {
+    background-color: rgb(15, 122, 255); /* Change background color on hover */
+}
+
+
+nav {
+    background-color: #ffffff;
+    height: 30px;
+    width: fit-content;
+    text-align: right;
+    padding: 1rem 2rem;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 35px;
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+nav a {
+    color: rgb(79, 79, 79);
+    text-decoration: none;
+    margin: 0 10px;
+    font-size: 20px;
+    transition: color 0.1s ease;
+}
+
+
+.about,
+.software {
+    width: 150px; 
+    height: 50px; 
+    padding: 10px 20px;
+    font-size: 20px;
+    cursor: pointer;
+    border: none;
+    border-radius: 30px; 
+    outline: none;
+    transition: background-color 0.3s, transform 0.3s, box-shadow 0.3s; /* Add box-shadow to the transition */
+    background: linear-gradient(45deg, #f8fbff, #f7f6ff); 
+    color: rgb(29, 29, 29);
+    box-shadow: 0 4px 6px rgba(76, 76, 76, 0.2); 
+}
+
+.about:hover,
+.software:hover {
+    box-shadow: 0 8px 12px rgb(255, 255, 255);
+    transform: scale(1.1);
+    color: #b7b7b7;
+}
+
+
+
+@media only screen and (max-width: 1000px) {
+    .welcome {
+        margin: 10px auto;
+    }
+}
