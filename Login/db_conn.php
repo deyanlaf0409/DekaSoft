@@ -46,11 +46,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['username'] = $username;
         $_SESSION['email'] = $email;
 
-        echo "success";
+        if (isset($_POST['AppRequest']) && $_POST['AppRequest'] === 'true') {
+            header('Content-Type: application/json');
+            echo json_encode([
+                'status' => 'success',
+                'username' => $username
+            ]);
+            exit;
+        } else {
+            // Normal success response for non-AppRequest
+            echo "success";
+        
         
         // Redirect to another page
         //header("Location: /project/profile/user-page.php");
         exit;
+        }
     } else {
         // Check if the user exists but is not verified
         $sqlUnverified = "SELECT * FROM USERS WHERE email = $1 AND password = $2 AND is_verified = false";
@@ -71,7 +82,4 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 pg_close($conn);
 ?>
-
-
-
 
