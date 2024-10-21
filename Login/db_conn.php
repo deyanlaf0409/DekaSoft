@@ -41,10 +41,13 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         // Retrieve the username from the query result
         $user_row = pg_fetch_assoc($result);
         $username = $user_row['username'];
+        $user_id = $user_row['id'];
         
         // Start session variables
         $_SESSION['username'] = $username;
         $_SESSION['email'] = $email;
+        $_SESSION['id'] = $user_id;
+
 
         if (isset($_POST['AppRequest']) && $_POST['AppRequest'] === 'true') {
             header('Content-Type: application/json');
