@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-    <title>DomainName</title>
+    <title>DekaSoft</title>
     <link rel="icon" type="image/x-icon" href="/project/favicon.ico">
     <link rel="stylesheet" href="page-style.css">
     <link rel="stylesheet" href="../master/footer-style.css">

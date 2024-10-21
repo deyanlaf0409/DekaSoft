@@ -2,8 +2,6 @@
 <html>
 <head>
     <title>Profile Page</title>
-
-
     <link rel="icon" type="image/x-icon" href="/project/favicon.ico">
     <link rel="stylesheet" href="profile-style.css">
     <link rel="stylesheet" href="del-dialog-style.css">
@@ -16,37 +14,62 @@
     </div>
 
     <form class="fade-in" id="success-container">
-        <h1>
-
+        <h1 class="profile-picture">
             <img src="../../res/Default_pfp.png" width="110" height="110">
-
         </h1>
 
-        <h2>
+        <h2 class="user-name">
         <?php
-        // Start session
         session_start();
 
-        // Check if the username is set in the session
         if (isset($_SESSION['username'])) {
-            // Retrieve the username from the session
             $username = $_SESSION['username'];
-            
+            $user_id = $_SESSION['id'];
             echo "<h1>$username</h1>";
         } else {
-            // If username is not set, display default message
             header("Location: /project/Login/construct.php");
+            exit();
         }
         ?>
         </h2>
 
         <h3 style="text-align: left;">My Notes:</h3>
-        <div class="order-status">
-            <!-- Add your order status here -->
+        <div class="notes">
+            <?php
+            // Database connection
+            include '../../conn_db.php';
+
+            try {
+                // Establish a connection to the PostgreSQL database
+                $db = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
+
+                // Prepare a query to fetch all notes for the user with session ID
+                $query = $db->prepare('SELECT text, date_created FROM data WHERE user_id = :user_id ORDER BY date_created DESC');
+                $query->bindParam(':user_id', $user_id, PDO::PARAM_INT);
+                $query->execute();
+
+                // Fetch all the notes
+                $notes = $query->fetchAll(PDO::FETCH_ASSOC);
+
+                // Display each note inside a div
+                if ($notes) {
+                    foreach ($notes as $note) {
+                        $formattedDate = (new DateTime($note['date_created']))->format('Y-m-d H:i');
+                        echo "<div class='note'>";
+                        echo "<p>" . htmlspecialchars($note['text']) . "</p>";
+                        echo "<small>Created on: " . htmlspecialchars($formattedDate) . "</small>";
+                        echo "</div><hr>";
+                    }
+                } else {
+                    echo "<p>No notes found.</p>";
+                }
+            } catch (PDOException $e) {
+                echo "<p>Error fetching notes: " . $e->getMessage() . "</p>";
+            }
+            ?>
         </div>
 
         <button class="delete-button" id="delete">Delete Account</button>
-
     </form>
 
     <?php include '../../master/footer.php'; ?>
@@ -54,11 +77,10 @@
 
     <script>
         var form = document.getElementById("success-container");
-        // Set form opacity to 1
         form.style.opacity = 1;
     </script>
 
-<script src="profilescripts.js"></script>
+    <script src="profilescripts.js"></script>
 
 </body>
 </html>

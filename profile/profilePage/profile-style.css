@@ -54,9 +54,9 @@ body {
 form {
     margin: 50px auto;
     width: 300px;
-    height: 400px;
+    min-height: 400px; /* Use min-height to allow resizing */
     text-align: center;
-    padding: 20px;
+    padding: 60px;
     border: 1px solid #ccc;
     border-radius: 15px;
     background-color: #fff;
@@ -69,12 +69,52 @@ form {
     opacity: 1;
 }
 
+.notes {
+    flex-grow: 1; /* Allow the container to grow */
+    width: 100%; 
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 7px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto; /* Enable scrolling when needed */
+    max-height: 400px; /* Constrain max height */
+    height: auto; /* Allow automatic height */
+    transition: height 0.3s ease; /* Smooth resizing effect */
+}
+
+/* Individual Note Styling */
+.note {
+    background-color: white;
+    padding: 15px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word;
+}
+
+.note p {
+    margin: 0;
+    font-size: 1rem;
+    color: #333;
+}
+
+.note small {
+    display: block;
+    margin-top: 5px;
+    font-size: 0.85rem;
+    color: #666;
+}
+
+/* Order Status Styling */
 .order-status {
     background-color: #ddd;
     padding: 10px;
     margin-top: 20px;
     border-radius: 10px;
 }
+
 
 .delete-button {
     background-color: rgb(140, 140, 140);
@@ -97,5 +137,18 @@ form {
     .back-link {
         top: 20px; 
         left: 10px; 
-    } 
+    }
+
+    form {
+        padding: 20px;
+    }
+
+    .notes {
+        padding: 5px;
+    }
 }
+
+
+
+
+
