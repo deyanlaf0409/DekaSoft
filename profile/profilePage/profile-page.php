@@ -54,7 +54,7 @@
                 // Display each note inside a div
                 if ($notes) {
                     foreach ($notes as $note) {
-                        $formattedDate = (new DateTime($note['date_created']))->format('Y-m-d H:i');
+                        $formattedDate = (new DateTime($note['date_created']))->format('d/m/Y H:i');
                         echo "<div class='note'>";
                         echo "<p>" . htmlspecialchars($note['text']) . "</p>";
                         echo "<small>Created on: " . htmlspecialchars($formattedDate) . "</small>";
