@@ -2,7 +2,6 @@
 
 session_start();
 
-
 // Set cache control headers to prevent caching
 header("Cache-Control: no-cache, no-store, must-revalidate");
 header("Pragma: no-cache");
@@ -11,7 +10,6 @@ header("Expires: 0");
 // Assuming you have a PostgreSQL database connection established
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
-
 
 include '../conn_db.php';
 
@@ -24,21 +22,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $password = $_POST["password"];
 
-    // After retrieving email and password
-    //echo "Email: $email, Password: $password";
-
-    // Validate email and password (you may want to add more validation here)
-
     // Perform the database check using parameterized query to prevent SQL injection
     $sql = "SELECT * FROM USERS WHERE email = $1 AND password = $2 AND is_verified = true";
-
-    //echo "SQL Query: $sql";
-
     $result = pg_query_params($conn, $sql, array($email, $password));
 
     if (pg_num_rows($result) > 0) {
         // User exists and is verified, perform login actions
-        // Retrieve the username from the query result
         $user_row = pg_fetch_assoc($result);
         $username = $user_row['username'];
         $user_id = $user_row['id'];
@@ -48,22 +37,34 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $_SESSION['email'] = $email;
         $_SESSION['id'] = $user_id;
 
-
+        // Check if request is from the app
         if (isset($_POST['AppRequest']) && $_POST['AppRequest'] === 'true') {
+            // Fetch all user notes
+            $sqlNotes = "SELECT note_id, text, date_created, date_modified FROM data WHERE user_id = $1";
+            $resultNotes = pg_query_params($conn, $sqlNotes, array($user_id));
+
+            $notes = [];
+            while ($note_row = pg_fetch_assoc($resultNotes)) {
+                $notes[] = [
+                    'id' => $note_row['note_id'],
+                    'text' => $note_row['text'],
+                    'dateCreated' => $note_row['date_created'],
+                    'dateModified' => $note_row['date_modified']
+                ];
+            }
+
+            // Return JSON response with user info and notes
             header('Content-Type: application/json');
             echo json_encode([
                 'status' => 'success',
-                'username' => $username
+                'username' => $username,
+                'notes' => $notes
             ]);
             exit;
         } else {
             // Normal success response for non-AppRequest
             echo "success";
-        
-        
-        // Redirect to another page
-        //header("Location: /project/profile/user-page.php");
-        exit;
+            exit;
         }
     } else {
         // Check if the user exists but is not verified
@@ -85,4 +86,5 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 pg_close($conn);
 ?>
+
 

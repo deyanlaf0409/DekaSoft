@@ -84,8 +84,23 @@ function checkLogin(event) {
         if (isJson(response.trim())) {
           const data = JSON.parse(response.trim());
           var username = data.username;
-          alert('Welcome,' + username);
-          window.location.href = "latenightnotes://auth?status=success&username=" + encodeURIComponent(username);
+          var notesData = data.notes;
+          var notesText = 'Your Notes:\n';
+
+          notesData.forEach(function(note) {
+
+            notesText += 'Note ID: ' + note.id + '\n';
+            notesText += 'Text: ' + note.text + '\n';
+            notesText += 'Date Created: ' + note.dateCreated + '\n';
+            notesText += 'Date Modified: ' + note.dateModified + '\n\n';
+
+          });
+          alert('Welcome,' + username + notesText);
+          const notesJSON = JSON.stringify(notesData);
+          const notesBase64 = btoa(notesJSON); // Encode to Base64
+
+          const deepLink = `latenightnotes://auth?status=success&username=${encodeURIComponent(username)}&notes=${encodeURIComponent(notesBase64)}`;
+          window.location.href = deepLink;
         }else if (response.trim() === "success") {
           window.location.href = "/project/profile/user-page.php";
         } else if (response.trim() === "unverified") {
