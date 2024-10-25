@@ -84,6 +84,7 @@ function checkLogin(event) {
         if (isJson(response.trim())) {
           const data = JSON.parse(response.trim());
           var username = data.username;
+          var userId = data.user_id;
           var notesData = data.notes;
           var notesText = 'Your Notes:\n';
 
@@ -95,11 +96,11 @@ function checkLogin(event) {
             notesText += 'Date Modified: ' + note.dateModified + '\n\n';
 
           });
-          alert('Welcome,' + username + notesText);
+          alert('Welcome,' + username + userId + notesText);
           const notesJSON = JSON.stringify(notesData);
           const notesBase64 = btoa(notesJSON); // Encode to Base64
 
-          const deepLink = `latenightnotes://auth?status=success&username=${encodeURIComponent(username)}&notes=${encodeURIComponent(notesBase64)}`;
+          const deepLink = `latenightnotes://auth?status=success&username=${encodeURIComponent(username)}&user_id=${encodeURIComponent(userId)}&notes=${encodeURIComponent(notesBase64)}`;
           window.location.href = deepLink;
         }else if (response.trim() === "success") {
           window.location.href = "/project/profile/user-page.php";

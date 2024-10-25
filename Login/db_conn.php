@@ -46,7 +46,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $notes = [];
             while ($note_row = pg_fetch_assoc($resultNotes)) {
                 $notes[] = [
-                    'id' => $note_row['note_id'],
+                    'id' => (int)$note_row['note_id'],
                     'text' => $note_row['text'],
                     'dateCreated' => $note_row['date_created'],
                     'dateModified' => $note_row['date_modified']
@@ -58,6 +58,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             echo json_encode([
                 'status' => 'success',
                 'username' => $username,
+                'user_id' => $user_id,
                 'notes' => $notes
             ]);
             exit;
