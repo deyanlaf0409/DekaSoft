@@ -43,8 +43,8 @@
                 // Establish a connection to the PostgreSQL database
                 $db = new PDO("pgsql:host=$host;dbname=$dbname", $user, $password);
 
-                // Prepare a query to fetch all notes for the user with session ID
-                $query = $db->prepare('SELECT text, date_created FROM data WHERE user_id = :user_id ORDER BY date_created DESC');
+                // Prepare a query to fetch all notes for the user with session ID, ordered by date_modified
+                $query = $db->prepare('SELECT text, date_created, date_modified FROM data WHERE user_id = :user_id ORDER BY date_modified DESC');
                 $query->bindParam(':user_id', $user_id, PDO::PARAM_INT);
                 $query->execute();
 
@@ -54,10 +54,12 @@
                 // Display each note inside a div
                 if ($notes) {
                     foreach ($notes as $note) {
-                        $formattedDate = (new DateTime($note['date_created']))->format('d/m/Y H:i');
+                        $formattedDateCreated = (new DateTime($note['date_created']))->format('d/m/Y H:i');
+                        $formattedDateModified = (new DateTime($note['date_modified']))->format('d/m/Y H:i');
                         echo "<div class='note'>";
                         echo "<p>" . htmlspecialchars($note['text']) . "</p>";
-                        echo "<small>Created on: " . htmlspecialchars($formattedDate) . "</small>";
+                        echo "<small>Created on: " . htmlspecialchars($formattedDateCreated) . "</small>";
+                        echo "<small>Last modified on: " . htmlspecialchars($formattedDateModified) . "</small>";
                         echo "</div><hr>";
                     }
                 } else {
