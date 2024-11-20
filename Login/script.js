@@ -98,7 +98,9 @@ function checkLogin(event) {
           });
           alert('Welcome,' + username + userId + notesText);
           const notesJSON = JSON.stringify(notesData);
-          const notesBase64 = btoa(notesJSON); // Encode to Base64
+
+          const utf8Bytes = new TextEncoder().encode(notesJSON); // Encode as UTF-8 bytes
+          const notesBase64 = btoa(String.fromCharCode(...utf8Bytes));
 
           const deepLink = `latenightnotes://auth?status=success&username=${encodeURIComponent(username)}&user_id=${encodeURIComponent(userId)}&notes=${encodeURIComponent(notesBase64)}`;
           window.location.href = deepLink;
