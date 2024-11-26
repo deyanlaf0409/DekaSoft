@@ -6,12 +6,16 @@ function checkRegister(event) {
     var confirmPassword = document.getElementById("confirm-password").value;
     var checkbox = document.getElementById("agree");
 
+    var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
+
     if (!username || !email || !password || !confirmPassword) {
         alert("Please fill in all the fields.");
         return false;
     }
 
-    if (!document.getElementById("email").checkValidity()) {
+    if (!document.getElementById("email").checkValidity() || !emailRegex.test(email)) {
+        console.log(email);
         alert("Please enter a valid email address.");
         return false;
     }
