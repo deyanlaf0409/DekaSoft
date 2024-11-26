@@ -93,7 +93,8 @@ function checkLogin(event) {
             notesText += 'Note ID: ' + note.id + '\n';
             notesText += 'Text: ' + note.text + '\n';
             notesText += 'Date Created: ' + note.dateCreated + '\n';
-            notesText += 'Date Modified: ' + note.dateModified + '\n\n';
+            notesText += 'Date Modified: ' + note.dateModified + '\n';
+            notesText += 'highlighted: ' + note.highlighted + '\n\n';
 
           });
           alert('Welcome,' + username + userId + notesText);
