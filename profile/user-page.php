@@ -8,7 +8,7 @@
     <link rel="icon" type="image/x-icon" href="/project/favicon.ico">
     <link rel="stylesheet" href="page-style.css">
     <link rel="stylesheet" href="../master/footer-style.css">
-    <link rel="stylesheet" href="../master/content-style.css">
+    <link rel="stylesheet" href="../master/user/user-content-style.css">
     <link rel="stylesheet" href="dialog-style.css">
 
 </head>
@@ -19,14 +19,14 @@
         <a class="logout" id="logout-btn">Logout</a>
         <a href="profilePage/profile-page.php" class="profile" id="prof-btn">Profile</a>
 
-        <a href="#about" onclick="closeDropdown()" class="about">About Us</a>
-        <a href="#software" onclick="closeDropdown()" class="software">Software</a>
+        <a href="#inbox" onclick="closeDropdown()" class="inbox">Recieved</a>
+        <a href="#outbox" onclick="closeDropdown()" class="outbox">Sent</a>
         <a href="#footer" onclick="closeDropdown()" class="contacts">Contacts</a>
 
         <button class="dropdown-btn">≡</button>
         <div class="dropdown-content">
-            <a href="#about">About Us</a>
-            <a href="#software">Software</a>
+            <a href="#inbox">Recieved</a>
+            <a href="#outbox">Sent</a>
             <a href="#footer">Contacts</a>
         </div>
 
@@ -50,7 +50,7 @@
         ?>
     </header>
 
-    <?php include '../master/content.php'; ?>
+    <?php include '../master/user/user-content.php'; ?>
 
     <?php include 'dialog-out.html'; ?>
 
