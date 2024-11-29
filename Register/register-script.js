@@ -8,7 +8,6 @@ function checkRegister(event) {
 
     var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-
     if (!username || !email || !password || !confirmPassword) {
         alert("Please fill in all the fields.");
         return false;
@@ -125,7 +124,7 @@ function sendVerificationEmail(email) {
     var confirmPassword = document.getElementById("confirm-password").value;
     var checkbox = document.getElementById("agree");
   
-    if (!username || !email.value || !email.checkValidity() || !password || !confirmPassword || !checkbox.checked) {
+    if (!username || !email.value || !email.checkValidity() || !password || !confirmPassword || !checkbox.checked || password.length < 8) {
       if (isLeft) {
         xPos = 260;
       } else {

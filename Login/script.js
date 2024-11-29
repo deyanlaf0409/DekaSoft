@@ -7,10 +7,10 @@ var xPos = myButton.offsetLeft;
 var isLeft = true;
 
 myButton.onmouseover = function (e) {
-  var email = document.getElementById("email").value;
+  var email = document.getElementById("email");
   var password = document.getElementById("password").value;
 
-  if (!email || !password) {
+  if (!email || !password || !email.checkValidity() || password.length < 8) {
     if (isLeft) {
       xPos = 260;
     } else {
@@ -30,8 +30,16 @@ function checkLogin(event) {
   var email = document.getElementById("email").value.trim();
   var password = document.getElementById("password").value.trim();
 
+  var emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+
   if (!email || !password) {
     alert("Please enter both e-mail and password.");
+    return false;
+  }
+
+  if (!document.getElementById("email").checkValidity() || !emailRegex.test(email)) {
+    console.log(email);
+    alert("Please enter a valid email address.");
     return false;
   }
 
