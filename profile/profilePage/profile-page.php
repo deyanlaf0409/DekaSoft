@@ -60,7 +60,7 @@
                         echo "<p>" . htmlspecialchars($note['text']) . "</p>";
                         echo "<small>Created on: " . htmlspecialchars($formattedDateCreated) . "</small>";
                         echo "<small>Last modified on: " . htmlspecialchars($formattedDateModified) . "</small>";
-                        echo "</div><hr>";
+                        echo "</div>";
                     }
                 } else {
                     echo "<p>No notes found.</p>";
