@@ -31,11 +31,27 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         $user_row = pg_fetch_assoc($result);
         $username = $user_row['username'];
         $user_id = $user_row['id'];
+
+        // Fetch all team members (users excluding the logged-in user)
+        $sqlTeam = "SELECT id, username, email FROM users WHERE id != $1";
+        $resultTeam = pg_query_params($conn, $sqlTeam, array($user_id));
+
+        $team_members = [];
+        while ($team_row = pg_fetch_assoc($resultTeam)) {
+            $team_members[] = [
+                'id' => $team_row['id'],
+                'username' => $team_row['username'],
+                'email' => $team_row['email'],
+            ];
+        }
+        
         
         // Start session variables
         $_SESSION['username'] = $username;
         $_SESSION['email'] = $email;
         $_SESSION['id'] = $user_id;
+        $_SESSION['team_members'] = $team_members;
+
 
         // Check if request is from the app
         if (isset($_POST['AppRequest']) && $_POST['AppRequest'] === 'true') {

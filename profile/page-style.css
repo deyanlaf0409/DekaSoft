@@ -99,6 +99,60 @@ nav a {
 }
 
 
+/* Team Members Sidebar */
+.team-members {
+    float: left;                /* Float to the left to align side by side */
+    width: 200px;               /* Set a fixed width */
+    margin-right: 20px;         /* Space between team members and the container */
+    margin-bottom: 30px;
+    padding: 10px;
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;           /* Enable scrolling */
+}
+
+/* Team Members list */
+.team-members ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.team-members li {
+    background-color: white;
+    padding: 10px;
+    margin-bottom: 10px;
+    border-radius: 8px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    word-wrap: break-word;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.team-members li:hover {
+    background-color: #f0f0f0;
+    transform: scale(1.05);
+}
+
+.team-members li a {
+    text-decoration: none;
+    font-size: 1rem;
+    color: #333;
+}
+
+.team-members li a:hover {
+    color: blue;
+}
+
+/* Optional: Heading for Team Members */
+.team-members h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+
+
 .inbox,
 .outbox {
     width: 150px; 
@@ -302,5 +356,26 @@ nav a {
     }
     .scroll-to-top-btn {
         display: none;
+    }
+
+    .team-members {
+        width: 50%; /* Make the sidebar take full width */
+        max-width: 120px; /* Set a reasonable max width for the sidebar */
+        margin: 0 1px 20px 0; /* Remove left margin, keep spacing */
+        float: none; /* Reset the float property */
+        box-shadow: none; /* Optional: remove box shadow for mobile view */
+    }
+
+    .main-content {
+        display: flex;
+        flex-direction: row; /* Arrange the sidebar and content side by side */
+        width: 100%; /* Make the content area fill the full width */
+        flex-wrap: wrap; /* Allow wrapping if needed */
+    }
+
+    .main-content > div {
+        flex: 1; /* Make the content container take the remaining space */
+        width: calc(100% - 220px); /* Adjust for sidebar width */
+        box-sizing: border-box; /* Make sure padding is considered in the width */
     }
 }

@@ -10,7 +10,6 @@
     <link rel="stylesheet" href="../master/footer-style.css">
     <link rel="stylesheet" href="../master/user/user-content-style.css">
     <link rel="stylesheet" href="dialog-style.css">
-
 </head>
 
 <body>
@@ -29,7 +28,6 @@
             <a href="#outbox">Sent</a>
             <a href="#footer">Contacts</a>
         </div>
-
     </nav>
 
     <header class="welcome">
@@ -50,67 +48,90 @@
         ?>
     </header>
 
-    <?php include '../master/user/user-content.php'; ?>
+    <div class="main-content">
+        <!-- Team Members Sidebar -->
+        <aside class="team-members">
+            <h3>Team Members</h3>
+            <ul>
+                <?php
+                if (isset($_SESSION['team_members'])) {
+                    foreach ($_SESSION['team_members'] as $member) {
+                        echo "<li>
+                            <a href='team-member.php?id=" . $member['id'] . "' class='team-member-container'>
+                                <div class='team-member'>
+                                    <span>" . htmlspecialchars($member['username']) . "</span>
+                                </div>
+                            </a>
+                        </li>";
+                    }
+                } else {
+                    echo "<p>No team members found.</p>";
+                }
+                ?>
+            </ul>
+        </aside>
+
+        <!-- Container for user content -->
+        <div>
+            <?php include '../master/user/user-content.php'; ?>
+        </div>
+    </div>
 
     <?php include 'dialog-out.html'; ?>
-
     <?php include '../master/footer.php'; ?>
 
     <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Add 'fade-in' class to elements with class 'login-btn' and 'register-btn'
-        document.querySelector('.logout').classList.add('fade-in');
-        document.querySelector('.profile').classList.add('fade-in');
-    });
+        document.addEventListener('DOMContentLoaded', function () {
+            // Add 'fade-in' class to elements with class 'login-btn' and 'register-btn'
+            document.querySelector('.logout').classList.add('fade-in');
+            document.querySelector('.profile').classList.add('fade-in');
+        });
 
-    var logBtn = document.getElementById("logout-btn");
-    logBtn.style.opacity = 1;
-    var regBtn = document.getElementById("prof-btn");
-    regBtn.style.opacity = 1;
+        var logBtn = document.getElementById("logout-btn");
+        logBtn.style.opacity = 1;
+        var regBtn = document.getElementById("prof-btn");
+        regBtn.style.opacity = 1;
+    </script>
 
-</script>
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
 
-<script>
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
 
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
+                const offsetTop = targetElement.offsetTop;
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const offset = offsetTop - headerHeight;
 
-            const offsetTop = targetElement.offsetTop;
-            const headerHeight = document.querySelector('header').offsetHeight;
-            const offset = offsetTop - headerHeight;
-
-            window.scrollTo({
-                top: offset,
-                behavior: 'smooth'
+                window.scrollTo({
+                    top: offset,
+                    behavior: 'smooth'
+                });
             });
         });
-    });
-</script>
+    </script>
 
-<script>
-    function closeDropdown() {
-        document.querySelector('.dropdown-btn').classList.remove('active');
-    }
+    <script>
+        function closeDropdown() {
+            document.querySelector('.dropdown-btn').classList.remove('active');
+        }
 
-    document.querySelector('.dropdown-btn').addEventListener('click', function () {
-        this.classList.toggle('active');
-    });
-
-    // Add event listeners for links inside the dropdown content
-    document.querySelectorAll('.dropdown-content a').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            closeDropdown(); // Close the dropdown when a link is clicked
+        document.querySelector('.dropdown-btn').addEventListener('click', function () {
+            this.classList.toggle('active');
         });
-    });
-</script>
 
-<script src="userpagescripts.js"></script>
+        // Add event listeners for links inside the dropdown content
+        document.querySelectorAll('.dropdown-content a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                closeDropdown(); // Close the dropdown when a link is clicked
+            });
+        });
+    </script>
 
+    <script src="userpagescripts.js"></script>
 
 </body>
 
 </html>
-
